@@ -1,0 +1,14 @@
+[
+    {
+        "nome" : "Coca-Cola", 
+        "preço": 3.50, 
+        "estoque": 25,
+        "codigo": "132C"
+    },
+    {
+        "nome" : "biscoito", 
+        "preço": 1.50, 
+        "estoque": 25,
+        "codigo": "132B"
+    }
+]
