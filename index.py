@@ -1,6 +1,7 @@
 import json
 import random
 from time import sleep
+from datetime import datetime
 
 try:
     with open("produtos.json", "r", encoding="utf-8") as dados:
@@ -15,13 +16,14 @@ print("\033[33mSistema de Caixa\033[0m")
 print()
 sleep(0.6)
 
-print("[1] Adicionar produtos ao carrinho")
-print()
-print("[2] Comfirmar a compra !")
-print()
-
-
 while True:
+
+    print("[1] Adicionar produtos ao carrinho")
+    print()
+    print("[2] Comfirmar a compra ")
+    print()
+    print("[3] Remover item do carrinho ")
+    print()
 
     while True:
 
@@ -76,11 +78,14 @@ while True:
                     while True:
 
                         qua_produto1 = input("Digite quantos vão ser adicionados: ")
+                        print()
+
                         if qua_produto1.isnumeric():
                             
                             break
                         else:
                             print("\033[31mIsso não é um número !\033[0m")
+                            print()
 
                     qua_produto = int(qua_produto1)
 
@@ -88,9 +93,6 @@ while True:
 
                         carrinho.append(produto_enco)
                         produto_enco['estoque'] = produto_enco['estoque'] - 1
-
-                    with open('produtos.json', 'w', encoding="utf-8") as dados:
-                        json.dump(produtos, dados, ensure_ascii= False, indent= 4)
 
                     print("\033[32mProduto adicionado !\033[0m")
                     print() 
@@ -112,8 +114,31 @@ while True:
 
     elif escolha == 2:
 
+        agora = datetime.now()
+
+        data_hora = agora.strftime("%d/%m/%Y/-/%H:%M")
+
         total = sum(produto['preço'] for produto in carrinho)
+        total_itens = 0
+        for produto in carrinho:
+            total_itens += 1
 
-        print(f"O total a pagar é de R${total}.")
+        print("\033[33mNota fiscal\033[0m")
+        print("==========================")
+        print()
+        print("Mercado Bom Preço")
+        print(f"Data: {data_hora}")
+        print(f"Quantidade de itens: {total_itens}")
+        print(f"O total a pagar é de \033[32mR${total:.2f}\033[0m.")
+        print()
+        print("==========================")
+        print()
 
-        break
+        with open('produtos.json', 'w', encoding="utf-8") as dados:
+            json.dump(produtos, dados, ensure_ascii= False, indent= 4)
+
+    elif escolha == 3:
+
+        print("Digite o código do item que deseja remover: ")
+
+        
