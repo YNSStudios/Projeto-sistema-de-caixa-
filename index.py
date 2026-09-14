@@ -27,18 +27,9 @@ while True:
     print("[4] Remover item do carrinho ")
     print()
 
-    while True:
 
-        escolha1 = input("Digite sua escolha: ")
-        print()
-
-        if escolha1.isnumeric() == True:
-            break
-        else:
-            print("\033[31mIsso não é um número !\033[0m")
-            print()
-
-    escolha = float(escolha1)
+    escolha = input("Digite sua escolha: ")
+    print()
 
     if escolha == 1:
 
@@ -47,6 +38,8 @@ while True:
             while True:
 
                 while True:
+
+                    print("Para terminar a adição digite \033[31mSair\033[0m")
 
                     co_produto = input("Digite o código do produto: ")
                     print()
@@ -70,47 +63,42 @@ while True:
                 print(f"Código: {produto_enco['codigo']}")
                 print()
 
-                opção = input("O produto está correto : ").lower().strip()
-                print()
+                while True:
 
-                if opção in ["sim", "s", "positivo", "correto", "certo", "ss"]:
+                    opçao = input("O produto está correto : ").lower().strip()
+                    print()
 
-                    while True:
+                    if opçao in ["sim", "s", "positivo", "correto", "certo", "ss"]:
 
-                        qua_produto1 = input("Digite quantos vão ser adicionados: ")
-                        print()
+                        while True:
 
-                        if qua_produto1.isnumeric():
-
-                            break
-                        else:
-                            print("\033[31mIsso não é um número !\033[0m")
+                            qua_produto1 = input("Digite quantos vão ser adicionados: ")
                             print()
 
-                    qua_produto = int(qua_produto1)
+                            if qua_produto1.isnumeric():
 
-                    for i in range(qua_produto):
+                                break
+                            else:
+                                print("\033[31mIsso não é um número !\033[0m")
+                                print()
 
-                        carrinho.append(produto_enco)
-                        produto_enco["estoque"] = produto_enco["estoque"] - 1
+                        qua_produto = int(qua_produto1)
 
-                    print("\033[32mProduto adicionado !\033[0m")
-                    print()
+                        for i in range(qua_produto):
+
+                            carrinho.append(produto_enco)
+
+                        print("\033[32mProduto adicionado !\033[0m")
+                        print()
+                        break
+                    else:
+                        print("Está correto ? Não entendi sua ultima mensaguem ): ")
+
                     break
+                break    
 
-            print("Ainda vai adicionar produtos? ")
-            print()
-
-            continuar = input("Sim ou Não: ").lower().strip()
-            print()
-
-            if continuar in ["não", "n"]:
+            if co_produto or opçao or qua_produto in ['Sair', 'sair']:
                 break
-            elif continuar in ["sim", "s", "positivo", "correto"]:
-                print()
-            else:
-                print("\033[31mOpção inválida !\033[0m")
-                print()
 
     elif escolha == 2:
 
@@ -122,6 +110,14 @@ while True:
         total_itens = 0
         for produto in carrinho:
             total_itens += 1
+
+        while True:
+
+            contague = []
+
+            for pegos in carrinho:
+
+                soma = sum(1 for produto in carrinho )
 
         print("\033[33mNota fiscal\033[0m")
         print("==========================")
