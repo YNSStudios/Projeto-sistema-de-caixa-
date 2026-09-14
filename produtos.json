@@ -2,13 +2,13 @@
     {
         "nome": "Coca-Cola",
         "preço": 3.5,
-        "estoque": 250,
+        "estoque": 249,
         "codigo": "132c"
     },
     {
         "nome": "biscoito",
         "preço": 1.5,
-        "estoque": 250,
+        "estoque": 248,
         "codigo": "132b"
     }
 ]

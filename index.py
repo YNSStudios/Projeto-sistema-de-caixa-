@@ -22,7 +22,9 @@ while True:
     print()
     print("[2] Comfirmar a compra ")
     print()
-    print("[3] Remover item do carrinho ")
+    print("[3] Visualizar o carrinho ")
+    print()
+    print("[4] Remover item do carrinho ")
     print()
 
     while True:
@@ -40,21 +42,19 @@ while True:
 
     if escolha == 1:
 
-        
-
         while True:
 
             while True:
 
                 while True:
 
-                    co_produto =input("Digite o código do produto: ")
+                    co_produto = input("Digite o código do produto: ")
                     print()
 
                     produto_enco = None
 
                     for produto in produtos:
-                        if produto['codigo'] == co_produto:
+                        if produto["codigo"] == co_produto:
                             produto_enco = produto
                             break
 
@@ -73,7 +73,7 @@ while True:
                 opção = input("O produto está correto : ").lower().strip()
                 print()
 
-                if opção in ['sim', 's', 'positivo', 'correto', 'certo', 'ss']:
+                if opção in ["sim", "s", "positivo", "correto", "certo", "ss"]:
 
                     while True:
 
@@ -81,7 +81,7 @@ while True:
                         print()
 
                         if qua_produto1.isnumeric():
-                            
+
                             break
                         else:
                             print("\033[31mIsso não é um número !\033[0m")
@@ -92,22 +92,22 @@ while True:
                     for i in range(qua_produto):
 
                         carrinho.append(produto_enco)
-                        produto_enco['estoque'] = produto_enco['estoque'] - 1
+                        produto_enco["estoque"] = produto_enco["estoque"] - 1
 
                     print("\033[32mProduto adicionado !\033[0m")
-                    print() 
+                    print()
                     break
 
-            print("Ainda vai adicionar produtos? ") 
-            print()     
+            print("Ainda vai adicionar produtos? ")
+            print()
 
             continuar = input("Sim ou Não: ").lower().strip()
             print()
 
-            if continuar in ['não', 'n']:
+            if continuar in ["não", "n"]:
                 break
-            elif continuar in ['sim', 's', 'positivo', 'correto']:
-                print() 
+            elif continuar in ["sim", "s", "positivo", "correto"]:
+                print()
             else:
                 print("\033[31mOpção inválida !\033[0m")
                 print()
@@ -118,7 +118,7 @@ while True:
 
         data_hora = agora.strftime("%d/%m/%Y/-/%H:%M")
 
-        total = sum(produto['preço'] for produto in carrinho)
+        total = sum(soma["preço"] for soma in carrinho)
         total_itens = 0
         for produto in carrinho:
             total_itens += 1
@@ -134,11 +134,61 @@ while True:
         print("==========================")
         print()
 
-        with open('produtos.json', 'w', encoding="utf-8") as dados:
-            json.dump(produtos, dados, ensure_ascii= False, indent= 4)
+        with open("produtos.json", "w", encoding="utf-8") as dados:
+            json.dump(produtos, dados, ensure_ascii=False, indent=4)
+
+        break
 
     elif escolha == 3:
 
-        print("Digite o código do item que deseja remover: ")
+        print("\033[33mProdutos no Carrinho\033[0m")
+        print("==========================")
+        print()
 
-        
+        itens_exibidos = []
+
+        for produto in carrinho:
+            
+            if produto['codigo'] not in itens_exibidos:
+                
+                qtd = sum(1 for p in carrinho if p['codigo'] == produto['codigo'])
+                
+                print(f"Nome: {produto['nome']}")
+                print(f"Preço: {produto['preço']:.2f}")
+                print(f"Quantidade: {qtd}")
+                print("==========================")
+                print()
+                itens_exibidos.append(produto['codigo'])
+
+        total = sum(produto['preço'] for produto in carrinho)
+
+        print(f"O total a pagar é de: \033[32mR${total:.2f}\033[0m.")
+        print()
+
+    elif escolha == 4:
+
+        print("Digite o código do item que deseja remover. ")
+        print()
+
+        while True:
+
+            re_produto = input("Digite o código: ")
+            print()
+
+            remover_produto = None
+
+            for produto in carrinho:
+                if produto["codigo"] == re_produto:
+                    remover_produto = produto
+                    break
+
+            if remover_produto is not None:
+                break
+            else:
+                print("\033[31mCódigo não encontrado !\033[0m")
+                print()
+
+        carrinho.remove(remover_produto)
+
+        print("\033[32mProduto removido com sucesso !\033[0m")
+        print()
